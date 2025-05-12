@@ -38,8 +38,8 @@ public class UserServiceImplTest {
         when(userEntryRepo.findByUserName(ArgumentMatchers.anyString()))
                 .thenReturn(UserEntry
                         .builder().
-                        userName("tejas").
-                        password("tejas").roles(new ArrayList<>())
+                        userName("demo").
+                        password("demo").roles(new ArrayList<>())
                         .build());
         UserDetails tejas = userDetailsService.loadUserByUsername("tejas");
     }
