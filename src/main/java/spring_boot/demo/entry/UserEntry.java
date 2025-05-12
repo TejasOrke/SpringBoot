@@ -1,5 +1,6 @@
 package spring_boot.demo.entry;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import org.bson.types.ObjectId;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Document(collection = "users")
 @Data
+@Builder
 public class UserEntry {
 
     @Id
@@ -29,4 +31,5 @@ public class UserEntry {
     private List<JournalEntry> journalEntries = new ArrayList<>();
 
     private List<String> roles;
+
 }

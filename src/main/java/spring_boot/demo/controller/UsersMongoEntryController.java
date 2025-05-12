@@ -7,9 +7,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import spring_boot.demo.api.response.WeatherResponse;
 import spring_boot.demo.service.UserEntryService;
 import spring_boot.demo.entry.UserEntry;
 import spring_boot.demo.repository.UserEntryRepo;
+import spring_boot.demo.service.WeatherApiService;
 
 @RestController
 @RequestMapping("/user")
@@ -20,6 +22,9 @@ public class UsersMongoEntryController {
 
     @Autowired
     private UserEntryRepo userEntryRepo;
+
+    @Autowired
+    private WeatherApiService weatherApiService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -55,5 +60,16 @@ public class UsersMongoEntryController {
         String name = authentication.getName();
         userEntryRepo.deleteByUserName(name);
         return new ResponseEntity<>("User deleted", HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weather = weatherApiService.getWeather("Mumbai");
+        String greeting = "";
+        if(weather != null){
+         greeting = ", Weather feels like " + weather.getCurrent().getFeelslike();
+        }
+        return new ResponseEntity<>(" hi "+ authentication.getName() + greeting, HttpStatus.OK);
     }
 }
