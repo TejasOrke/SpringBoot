@@ -23,8 +23,8 @@ public class UserServiceTest {
     @Test
     public void testFindByUserName() {
 //        assertEquals(4 , 2 + 2);
-        assertNotNull(userEntryRepo.findByUserName("tejas"));
-        UserEntry viki = userEntryRepo.findByUserName("tejas");
+        assertNotNull(userEntryRepo.findByUserName("demo"));
+        UserEntry viki = userEntryRepo.findByUserName("demo");
         assertTrue(!viki.getJournalEntries().isEmpty());
     }
 
@@ -43,10 +43,10 @@ public class UserServiceTest {
     @Disabled
     @ParameterizedTest
     @CsvSource({
-            "tejas",
-            "Suraj",
-            "viki",
-            "Gaurav"
+            "demo1",
+            "demo2",
+            "demo3",
+            "demo4"
     })
 
     public void testUserName(String name) {
@@ -56,10 +56,10 @@ public class UserServiceTest {
     @Disabled
     @ParameterizedTest
     @ValueSource(strings = {
-            "tejas",
-            "Suraj",
-            "viki",
-            "Gaurav"
+            "demo1",
+            "demo2",
+            "demo3",
+            "demo4"
     })
     public void testUserName2(String name){
         assertNotNull(userEntryRepo.findByUserName(name));
