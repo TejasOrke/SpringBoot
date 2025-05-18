@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: journaldb
+      auto-index-creation: true
+
+weather:
+  api:
+    key: ef6b9c3b2c40ab6c13ce8959fb077a52

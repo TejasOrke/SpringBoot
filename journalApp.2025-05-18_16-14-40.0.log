@@ -1,0 +1,4 @@
+2025-05-18 16:14:40 - Global AuthenticationManager configured with UserDetailsService bean with name userServiceImpl
+2025-05-18 16:14:40 - Starting ProtocolHandler ["http-nio-8080"]
+2025-05-18 16:14:40 - Tomcat started on port 8080 (http) with context path '/'
+2025-05-18 16:14:40 - Started DemoApplication in 3.957 seconds (process running for 4.729)

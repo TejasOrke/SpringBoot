@@ -2,23 +2,29 @@ package spring_boot.demo.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import spring_boot.demo.api.response.WeatherResponse;
+import spring_boot.demo.cache.AppCache;
 
 @Service
 public class WeatherApiService {
-    private static final String apiKey = "ef6b9c3b2c40ab6c13ce8959fb077a52";
-    private static final String API = "https://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
+
+
+    @Value("${weather.api.key}")
+    private String apiKey;
 
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private AppCache appCache;
+
     public WeatherResponse getWeather(String city){
-        String replace = API.replace("CITY", city).replace("API_KEY", apiKey);
+        String replace = appCache.APP_CACHE.get(AppCache.keys.WEATHER_API.toString()).replace("<city>",city).replace("<apiKey>", apiKey);
         ResponseEntity<WeatherResponse> exchange = restTemplate.exchange(replace, HttpMethod.GET, null, WeatherResponse.class);
         exchange.getStatusCode().is2xxSuccessful();
         return exchange.getBody();

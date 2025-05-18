@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
+import spring_boot.demo.cache.AppCache;
 import spring_boot.demo.entry.UserEntry;
 import spring_boot.demo.service.UserEntryService;
 
@@ -17,6 +18,9 @@ public class AdminController {
 
     @Autowired
     private UserEntryService userEntryService;
+
+    @Autowired
+    private AppCache appCache;
 
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers() {
@@ -32,6 +36,8 @@ public class AdminController {
         userEntryService.saveAdmin(userEntry);
     }
 
-
-
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+     appCache.init();
+    }
 }
